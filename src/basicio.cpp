@@ -1845,7 +1845,8 @@ namespace Exiv2 {
         size_t totalRead = 0;
         do {
             byte* data = p_->blocksMap_[iBlock++].getData();
-            if (data == NULL) data = fakeData;
+            if (data == NULL)
+                data = fakeData;
             size_t blockR = EXV_MIN(allow, p_->blockSize_ - startPos);
             std::memcpy(&buf[totalRead], &data[startPos], blockR);
             totalRead += blockR;
@@ -1853,7 +1854,7 @@ namespace Exiv2 {
             allow -= blockR;
         } while(allow);
 
-        if (fakeData) std::free(fakeData);
+        std::free(fakeData);
 
         p_->idx_ += (long) totalRead;
         p_->eof_ = (p_->idx_ == (long) p_->size_);
